@@ -1,0 +1,8 @@
+*.asm
+*.ihx
+*.lst
+*.o
+*.sym
+*.gb
+*.gbc
+.vscode/
