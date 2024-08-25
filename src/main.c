@@ -2,8 +2,11 @@
 #include <gb/gb.h>
 #include <gb/crash_handler.h>
 #include "game_states.h"
+#include "fade.h"
 
 void main(void) {
+
+	fade_out();
 
 	init_splashState();
 	init_introState();
