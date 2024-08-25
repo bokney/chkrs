@@ -1,6 +1,9 @@
 
 #include <gb/gb.h>
 
+// gfx courtesy iknowkingrabbit
+// https://iknowkingrabbit.itch.io/mas-funpack
+
 const uint8_t tiles[192] = {
     0xff,0xff,0xff,0xff,
     0xff,0xff,0xff,0xff,
