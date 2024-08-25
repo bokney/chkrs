@@ -7,7 +7,7 @@ all: build open clean
 
 build:
 	# $(CC) $(CFLAGS) -c -o gfx.o data/gfx.s
-	$(CC) $(CFLAGS) -c -o tiles.o src/gfx/tiles.c
+	$(CC) $(CFLAGS) -c -o gfx.o src/gfx/gfx.c
 	$(CC) $(CFLAGS) -c -o fade.o src/fade.c
 	$(CC) $(CFLAGS) -c -o splash.o src/game_states/splash.c
 	$(CC) $(CFLAGS) -c -o intro.o src/game_states/intro.c
@@ -20,7 +20,7 @@ build:
 	$(CC) $(CFLAGS) -c -o stateManager.o src/stateManager.c
 	$(CC) $(CFLAGS) -c -o game_states.o src/game_states.c
 	$(CC) $(CFLAGS) -c -o main.o src/main.c
-	$(CC) $(MFLAGS) -o output.gb main.o game_states.o stateManager.o settings.o win.o lose.o game.o game_intro.o main_menu.o intro.o splash.o fade.o tiles.o #gfx.o
+	$(CC) $(MFLAGS) -o output.gb main.o game_states.o stateManager.o settings.o win.o lose.o game.o game_intro.o main_menu.o intro.o splash.o fade.o gfx.o #gfx.o
 
 open:
 	open -a /Applications/SameBoy.app output.gb
