@@ -2,6 +2,8 @@
 #include "game_states.h"
 #include <gb/crash_handler.h>
 
+uint16_t global_counter = 0;
+
 uint8_t runState(state *target) {
     switch (target->step) {
         case 0:
@@ -17,5 +19,7 @@ uint8_t runState(state *target) {
         default:
             __HandleCrash();
     }
+    global_counter++;
+    wait_vbl_done();
     return 0;
 }
