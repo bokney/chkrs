@@ -37,20 +37,20 @@ typedef struct _{lower_camel_case}Data {{
 
 {lower_camel_case}Data {snake_case}_data;
 
-void {snake_case}_init(void *data) {{
-    {lower_camel_case}Data *data_ptr = data;
-    data_ptr->count = 0;
+void {snake_case}_init(void) {{
+    {snake_case}_data.count = 0;
+
     fade_in();
 }}
 
-uint8_t {snake_case}_iter(void *data) {{
-    {lower_camel_case}Data *data_ptr = data;
+uint8_t {snake_case}_iter(void) {{
 
+    {snake_case}_data.count++;
     return 0;
 }}
 
-uint8_t {snake_case}_exit(void *data) {{
-    {lower_camel_case}Data *data_ptr = data;
+uint8_t {snake_case}_exit(void) {{
+
     fade_out();
     return 1;
 }}
@@ -58,13 +58,9 @@ uint8_t {snake_case}_exit(void *data) {{
     h_contents = f"""
 #include <gb/gb.h>
 
-typedef struct _{lower_camel_case}Data {lower_camel_case}Data;
-
-extern {lower_camel_case}Data {snake_case}_data;
-
-void {snake_case}_init(void *data);
-uint8_t {snake_case}_iter(void *data);
-uint8_t {snake_case}_exit(void *data);
+void {snake_case}_init(void);
+uint8_t {snake_case}_iter(void);
+uint8_t {snake_case}_exit(void);
 """
  
     with open(file = f"{snake_case}.c", mode = "w") as f:
@@ -88,7 +84,6 @@ state *init_{lower_camel_case_list[i]}State(void) {{
     {lower_camel_case_list[i]}State.init = {snake_case_list[i]}_init;
     {lower_camel_case_list[i]}State.iter = {snake_case_list[i]}_iter;
     {lower_camel_case_list[i]}State.exit = {snake_case_list[i]}_exit;
-    {lower_camel_case_list[i]}State.data = &{snake_case_list[i]}_data;
     return &{lower_camel_case_list[i]}State;
 }}
 """
