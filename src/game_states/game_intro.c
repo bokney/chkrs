@@ -8,20 +8,20 @@ typedef struct _gameIntroData {
 
 gameIntroData game_intro_data;
 
-void game_intro_init(void *data) {
-    gameIntroData *data_ptr = data;
-    data_ptr->count = 0;
+void game_intro_init(void) {
+    game_intro_data.count = 0;
+
     fade_in();
 }
 
-uint8_t game_intro_iter(void *data) {
-    gameIntroData *data_ptr = data;
+uint8_t game_intro_iter(void) {
 
+    game_intro_data.count++;
     return 0;
 }
 
-uint8_t game_intro_exit(void *data) {
-    gameIntroData *data_ptr = data;
+uint8_t game_intro_exit(void) {
+
     fade_out();
     return 1;
 }

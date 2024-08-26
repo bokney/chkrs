@@ -3,10 +3,9 @@
 
 typedef struct _state {
     uint8_t step;
-    void (*init)(void *data);
-    uint8_t (*iter)(void *data);
-    uint8_t (*exit)(void *data);
-    void *data;
+    void (*init)(void);
+    uint8_t (*iter)(void);
+    uint8_t (*exit)(void);
 } state;
 
 uint8_t runState(state *state);

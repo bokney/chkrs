@@ -4,6 +4,8 @@
 #include "game_states.h"
 #include "fade.h"
 
+uint16_t global_counter = 0;
+
 void main(void) {
 
 	fade_out();
@@ -50,5 +52,7 @@ void main(void) {
 			default:
 				__HandleCrash();
 		}
+		global_counter++;
+		wait_vbl_done();
 	}
 }

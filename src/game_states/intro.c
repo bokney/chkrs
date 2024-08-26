@@ -8,20 +8,20 @@ typedef struct _introData {
 
 introData intro_data;
 
-void intro_init(void *data) {
-    introData *data_ptr = data;
-    data_ptr->count = 0;
+void intro_init(void) {
+    intro_data.count = 0;
+
     fade_in();
 }
 
-uint8_t intro_iter(void *data) {
-    introData *data_ptr = data;
+uint8_t intro_iter(void) {
 
+    intro_data.count++;
     return 0;
 }
 
-uint8_t intro_exit(void *data) {
-    introData *data_ptr = data;
+uint8_t intro_exit(void) {
+
     fade_out();
     return 1;
 }

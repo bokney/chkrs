@@ -8,20 +8,20 @@ typedef struct _splashData {
 
 splashData splash_data;
 
-void splash_init(void *data) {
-    splashData *data_ptr = data;
-    data_ptr->count = 0;
+void splash_init(void) {
+    splash_data.count = 0;
+
     fade_in();
 }
 
-uint8_t splash_iter(void *data) {
-    splashData *data_ptr = data;
+uint8_t splash_iter(void) {
 
+    splash_data.count++;
     return 0;
 }
 
-uint8_t splash_exit(void *data) {
-    splashData *data_ptr = data;
+uint8_t splash_exit(void) {
+
     fade_out();
     return 1;
 }

@@ -8,20 +8,20 @@ typedef struct _winData {
 
 winData win_data;
 
-void win_init(void *data) {
-    winData *data_ptr = data;
-    data_ptr->count = 0;
+void win_init(void) {
+    win_data.count = 0;
+
     fade_in();
 }
 
-uint8_t win_iter(void *data) {
-    winData *data_ptr = data;
+uint8_t win_iter(void) {
 
+    win_data.count++;
     return 0;
 }
 
-uint8_t win_exit(void *data) {
-    winData *data_ptr = data;
+uint8_t win_exit(void) {
+
     fade_out();
     return 1;
 }
