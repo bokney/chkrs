@@ -20,7 +20,7 @@ uint8_t runState(state *target) {
             if (target->exit) {
                 return target->exit();
             } else {
-                return NULL;
+                return 0;
             }
         default:
             __HandleCrash();
