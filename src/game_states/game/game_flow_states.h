@@ -1,14 +1,12 @@
 
-#include "../../stateManager.h"
+#include "stateManager.h"
 
-extern state selectState;
-extern state dropState;
-extern state jumpState;
-extern state crownState;
-extern state captureState;
-
-state *init_selectState(void);
-state *init_dropState(void);
-state *init_jumpState(void);
-state *init_crownState(void);
-state *init_captureState(void);
+state *init_selectState(state *state);
+state *init_passState(state *state);
+state *init_declareState(state *state);
+state *init_dropState(state *state);
+state *init_jumpState(state *state);
+state *init_crownState(state *state);
+state *init_captureState(state *state);
+state *init_handoverState(state *state);
+state *init_endState(state *state);

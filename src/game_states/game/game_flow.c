@@ -3,37 +3,52 @@
 #include <gb/crash_handler.h>
 #include "game_flow_states.h"
 
-void game_flow(void) {
+state currentState;
 
-	init_selectState();
-	init_dropState();
-	init_jumpState();
-	init_crownState();
-	init_captureState();
+void game_flow_init(void) {
+    init_selectState(&currentState);
+}
 
-    state *currentState = &selectState;
-    
+uint8_t game_flow_iter(void) {
     for (;;) {
-        switch (runState(currentState)) {
+        switch (runState(&currentState)) {
             case 0:
                 break;
 			case 1:
-				currentState = &selectState;
+				init_selectState(&currentState);
 				break;
 			case 2:
-				currentState = &dropState;
+				init_passState(&currentState);
 				break;
 			case 3:
-				currentState = &jumpState;
+				init_declareState(&currentState);
 				break;
 			case 4:
-				currentState = &crownState;
+				init_dropState(&currentState);
 				break;
 			case 5:
-				currentState = &captureState;
+				init_jumpState(&currentState);
 				break;
+			case 6:
+				init_crownState(&currentState);
+				break;
+			case 7:
+				init_captureState(&currentState);
+				break;
+			case 8:
+				init_handoverState(&currentState);
+				break;
+			case 9:
+				init_endState(&currentState);
+				return 1;
 			default:
 				__HandleCrash();
 		}
 	}
+	return 0;
+}
+
+uint8_t game_flow_exit(void) {
+
+    return 1;
 }

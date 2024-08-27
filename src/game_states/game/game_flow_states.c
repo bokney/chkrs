@@ -1,56 +1,66 @@
 
 #include <gb/gb.h>
-#include "game_flow_states.h"
-#include "game_flow_states/select.h"
-#include "game_flow_states/drop.h"
-#include "game_flow_states/jump.h"
-#include "game_flow_states/crown.h"
-#include "game_flow_states/capture.h"
+#include "game_states.h"
+#include "game_states/select.h"
+#include "game_states/pass.h"
+#include "game_states/declare.h"
+#include "game_states/drop.h"
+#include "game_states/jump.h"
+#include "game_states/crown.h"
+#include "game_states/capture.h"
+#include "game_states/handover.h"
+#include "game_states/end.h"
 
-
-state
-	selectState,
-	dropState,
-	jumpState,
-	crownState,
-	captureState;
-
-state *init_selectState(void) {
-    selectState.step = 0;
-    selectState.init = select_init;
-    selectState.iter = select_iter;
-    selectState.exit = select_exit;
-    return &selectState;
+void init_selectState(state *state) {
+    state->init = &select_init;
+    state->iter = &select_iter;
+    state->exit = &select_exit;
 }
 
-state *init_dropState(void) {
-    dropState.step = 0;
-    dropState.init = drop_init;
-    dropState.iter = drop_iter;
-    dropState.exit = drop_exit;
-    return &dropState;
+void init_passState(state state) {
+    state->init = &pass_init;
+    state->iter = &pass_iter;
+    state->exit = &pass_exit;
 }
 
-state *init_jumpState(void) {
-    jumpState.step = 0;
-    jumpState.init = jump_init;
-    jumpState.iter = jump_iter;
-    jumpState.exit = jump_exit;
-    return &jumpState;
+void init_declareState(state state) {
+    state->init = &declare_init;
+    state->iter = &declare_iter;
+    state->exit = &declare_exit;
 }
 
-state *init_crownState(void) {
-    crownState.step = 0;
-    crownState.init = crown_init;
-    crownState.iter = crown_iter;
-    crownState.exit = crown_exit;
-    return &crownState;
+void init_dropState(state state) {
+    state->init = &drop_init;
+    state->iter = &drop_iter;
+    state->exit = &drop_exit;
 }
 
-state *init_captureState(void) {
-    captureState.step = 0;
-    captureState.init = capture_init;
-    captureState.iter = capture_iter;
-    captureState.exit = capture_exit;
-    return &captureState;
+void init_jumpState(state state) {
+    state->init = &jump_init;
+    state->iter = &jump_iter;
+    state->exit = &jump_exit;
+}
+
+void init_crownState(state state) {
+    state->init = &crown_init;
+    state->iter = &crown_iter;
+    state->exit = &crown_exit;
+}
+
+void init_captureState(state state) {
+    state->init = &capture_init;
+    state->iter = &capture_iter;
+    state->exit = &capture_exit;
+}
+
+void init_handoverState(state state) {
+    state->init = &handover_init;
+    state->iter = &handover_iter;
+    state->exit = &handover_exit;
+}
+
+void init_endState(state state) {
+    state->init = &end_init;
+    state->iter = &end_iter;
+    state->exit = &end_exit;
 }
