@@ -1,6 +1,5 @@
 
 #include "declare.h"
-#include "../fade.h"
 
 void declare_init(void) {
 

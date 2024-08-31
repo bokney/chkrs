@@ -1,6 +1,5 @@
 
 #include "crown.h"
-#include "../fade.h"
 
 void crown_init(void) {
 

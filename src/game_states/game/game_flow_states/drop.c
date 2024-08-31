@@ -1,6 +1,5 @@
 
 #include "drop.h"
-#include "../fade.h"
 
 void drop_init(void) {
 

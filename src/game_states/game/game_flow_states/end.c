@@ -1,6 +1,5 @@
 
 #include "end.h"
-#include "../fade.h"
 
 void end_init(void) {
 

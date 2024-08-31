@@ -1,6 +1,5 @@
 
 #include "capture.h"
-#include "../fade.h"
 
 void capture_init(void) {
 

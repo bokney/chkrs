@@ -1,6 +1,5 @@
 
 #include "pass.h"
-#include "../fade.h"
 
 void pass_init(void) {
 

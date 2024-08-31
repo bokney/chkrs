@@ -1,6 +1,5 @@
 
 #include "jump.h"
-#include "../fade.h"
 
 void jump_init(void) {
 

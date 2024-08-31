@@ -1,6 +1,5 @@
 
 #include "handover.h"
-#include "../fade.h"
 
 void handover_init(void) {
 
