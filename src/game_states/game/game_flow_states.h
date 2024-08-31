@@ -1,12 +1,12 @@
 
-#include "stateManager.h"
+#include "../../stateManager.h"
 
-state *init_selectState(state *state);
-state *init_passState(state *state);
-state *init_declareState(state *state);
-state *init_dropState(state *state);
-state *init_jumpState(state *state);
-state *init_crownState(state *state);
-state *init_captureState(state *state);
-state *init_handoverState(state *state);
-state *init_endState(state *state);
+void assign_selectState(state *state);
+void assign_passState(state *state);
+void assign_declareState(state *state);
+void assign_dropState(state *state);
+void assign_jumpState(state *state);
+void assign_crownState(state *state);
+void assign_captureState(state *state);
+void assign_handoverState(state *state);
+void assign_endState(state *state);
