@@ -22,3 +22,7 @@ typedef struct _gameData {
     peonData peons[2][12];
 
 } gameData;
+
+typedef struct _captureData {
+    uint8_t count;
+} captureData;
