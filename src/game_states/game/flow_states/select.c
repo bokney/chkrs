@@ -5,7 +5,7 @@
 extern uint8_t joypad_previous, joypad_current;
 
 void select_init(void) {
-
+    
 }
 
 uint8_t select_iter(void) {

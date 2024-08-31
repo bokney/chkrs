@@ -1,7 +1,7 @@
 
 #include <gb/gb.h>
 #include <gb/crash_handler.h>
-#include "game_flow_states.h"
+#include "flow_states.h"
 
 state currentState;
 
