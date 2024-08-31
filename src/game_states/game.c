@@ -1,12 +1,9 @@
 
 #include "game.h"
 #include "game/game_data.h"
-#include "game/game_flow_states.h"
-// #include "game/game_flow_states/select.h"
-// #include "game/game_flow_states/drop.h"
-// #include "game/game_flow_states/jump.h"
-// #include "game/game_flow_states/crown.h"
-// #include "game/game_flow_states/capture.h"
+#include "game/flow_states.h"
+#include "game/flow_manager.h"
+
 #include <gb/crash_handler.h>
 #include "../fade.h"
 
@@ -257,6 +254,6 @@ uint8_t game_iter(void) {
 
 uint8_t game_exit(void) {
     
-    // fade_out();
+    fade_out();
     return 1;
 }
