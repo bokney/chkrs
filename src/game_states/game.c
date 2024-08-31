@@ -1,42 +1,43 @@
 
 #include "game.h"
+#include "game/game_data.h"
 #include "game/game_flow_states.h"
-#include "game/game_flow_states/select.h"
-#include "game/game_flow_states/drop.h"
-#include "game/game_flow_states/jump.h"
-#include "game/game_flow_states/crown.h"
-#include "game/game_flow_states/capture.h"
+// #include "game/game_flow_states/select.h"
+// #include "game/game_flow_states/drop.h"
+// #include "game/game_flow_states/jump.h"
+// #include "game/game_flow_states/crown.h"
+// #include "game/game_flow_states/capture.h"
 #include <gb/crash_handler.h>
 #include "../fade.h"
 
-typedef enum _peonState {
-    P1MAN = 0,
-    P1KING = 1,
-    P1LOST = 2,
-    P2MAN = 3,
-    P2KING = 4,
-    P2LOST = 5
-} peonState;
+// typedef enum _peonState {
+//     P1MAN = 0,
+//     P1KING = 1,
+//     P1CAPTURED = 2,
+//     P2MAN = 3,
+//     P2KING = 4,
+//     P2CAPTURED = 5
+// } peonState;
 
-typedef struct _peon {
-    peonState state;
-    uint8_t x, y;
-} peon;
+// typedef struct _peon {
+//     peonState state;
+//     uint8_t x, y;
+// } peon;
 
-typedef struct _gameData {
+// typedef struct _gameData {
 
-    uint8_t cursor_x, cursor_y;
-    uint8_t cursor_cooldown;
-    peon *cursor_target;
+//     uint8_t cursor_x, cursor_y;
+//     uint8_t cursor_cooldown;
+//     peon *cursor_target;
 
-    uint8_t move_counter;
-    peon peons[24];
-    peon *board[8][8];
+//     uint8_t move_counter;
+//     peon peons[24];
+//     peon *board[8][8];
 
-} gameData;
+// } gameData;
 
 gameData game_data;
-state *flow_state = &selectState;
+// state *flow_state = &selectState;
 
 uint8_t joypad_current, joypad_previous;
 
@@ -61,16 +62,18 @@ void do_sound(void) {
 
 void init_board(void) {
     uint8_t p_count = 0;
-        for (uint8_t ix = 0; ix < 8; ix++) {
+    for (uint8_t ix = 0; ix < 8; ix++) {
         for (uint8_t iy = 0; iy < 8; iy++) {
             if ((ix + iy) % 2) {
                 if (iy < 3) {
-                    game_data.peons[p_count].state = P1MAN;
-                    game_data.board[ix][iy] = &game_data.peons[p_count];
+                    game_data.peons[0][p_count].state = P1MAN;
+                    game_data.board[ix][iy] = &game_data.peons[0][p_count];
                     p_count++;
+                } else if (iy == 4) {
+                    p_count = 0;
                 } else if (iy > 4) {
-                    game_data.peons[p_count].state = P2MAN;
-                    game_data.board[ix][iy] = &game_data.peons[p_count];
+                    game_data.peons[1][p_count].state = P2MAN;
+                    game_data.board[ix][iy] = &game_data.peons[0][p_count];
                     p_count++;
                 } else {
                     game_data.board[ix][iy] = NULL;
@@ -105,7 +108,7 @@ void draw_bkg(void) {
     for (uint8_t ix = 0; ix < 8; ix++) {
         for (uint8_t iy = 0; iy < 8; iy++) {
             if (game_data.board[ix][iy]) {
-                peon *peon_ptr = game_data.board[ix][iy];
+                peonData *peon_ptr = game_data.board[ix][iy];
                 switch (peon_ptr->state) {
                     case P1MAN:
                         set_bkg_tile_xy(ix + x_offset, iy + y_offset, 10);
@@ -113,7 +116,7 @@ void draw_bkg(void) {
                     case P1KING:
                         set_bkg_tile_xy(ix + x_offset, iy + y_offset, 10);
                         break;
-                    case P1LOST:
+                    case P1CAPTURED:
                         __HandleCrash();
                         break;
                     case P2MAN:
@@ -122,7 +125,7 @@ void draw_bkg(void) {
                     case P2KING:
                         set_bkg_tile_xy(ix + x_offset, iy + y_offset, 11);
                         break;
-                    case P2LOST:
+                    case P2CAPTURED:
                         __HandleCrash();
                         break;
                     default:
@@ -165,13 +168,13 @@ void game_init(void) {
     game_data.cursor_cooldown = 0;
     game_data.cursor_target = NULL;
     
-    init_board();
+    // init_board();
 
-    init_selectState();
-    init_dropState();
-    init_jumpState();
-    init_crownState();
-    init_captureState();
+    // init_selectState();
+    // init_dropState();
+    // init_jumpState();
+    // init_crownState();
+    // init_captureState();
 
     set_bkg_data(0, 12, &tiles);
     draw_bkg();
