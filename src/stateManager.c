@@ -5,23 +5,20 @@
 uint8_t runState(state *target) {
     switch (target->step) {
         case 0:
-            if (target->init) {
+            if (target->init)
                 target->init();
-            }
             target->step = 1;
         case 1:
-            if (target->iter) {
+            if (target->iter)
                 if (!target->iter()) 
                     break;
-            }
-            target->step = 2;
         case 2:
+            target->step = 2;
             target->step = 0;
-            if (target->exit) {
+            if (target->exit)
                 return target->exit();
-            } else {
+            else
                 return 0;
-            }
         default:
             __HandleCrash();
     }
