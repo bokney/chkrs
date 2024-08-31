@@ -13,7 +13,6 @@ uint8_t runState(state *target) {
                 if (!target->iter()) 
                     break;
         case 2:
-            target->step = 2;
             target->step = 0;
             if (target->exit)
                 return target->exit();
