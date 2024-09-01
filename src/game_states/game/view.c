@@ -1,7 +1,32 @@
 
-#include "view.h"
 #include <gb/gb.h>
+#include <gb/crash_handler.h>
+#include "view.h"
 #include "game_data.h"
+
+
+extern const uint8_t tiles;
+extern const uint8_t sprites;
+
+extern uint16_t global_counter;
+
+void init_gfx(void) {
+    set_bkg_data(0, 12, &tiles);
+    SPRITES_8x8;
+    set_sprite_data(0, 2, &sprites);
+}
+
+void init_cursor(void) {
+    HIDE_SPRITES;
+    set_sprite_tile(0, 0);
+    set_sprite_tile(1, 0);
+    set_sprite_prop(1, S_FLIPY);
+    set_sprite_tile(2, 0);
+    set_sprite_prop(2, S_FLIPX);
+    set_sprite_tile(3, 0);
+    set_sprite_prop(3, S_FLIPY | S_FLIPX);
+    SHOW_SPRITES;
+}
 
 void draw_bkg(void) {
     gameData *data_ptr = &game_data;
@@ -46,4 +71,21 @@ void draw_bkg(void) {
         }
     }
     SHOW_BKG;
+}
+
+void draw_sprites(void) {
+    gameData *data_ptr = &game_data;
+    HIDE_SPRITES;
+    if ((global_counter >> 3) % 2) {
+        move_sprite(0, 51 + game_data.cursor_x * 8, 51 + game_data.cursor_y * 8);
+        move_sprite(1, 51 + game_data.cursor_x * 8, 61 + game_data.cursor_y * 8);
+        move_sprite(2, 61 + game_data.cursor_x * 8, 51 + game_data.cursor_y * 8);
+        move_sprite(3, 61 + game_data.cursor_x * 8, 61 + game_data.cursor_y * 8);
+    } else {
+        move_sprite(0, 52 + game_data.cursor_x * 8, 52 + game_data.cursor_y * 8);
+        move_sprite(1, 52 + game_data.cursor_x * 8, 60 + game_data.cursor_y * 8);
+        move_sprite(2, 60 + game_data.cursor_x * 8, 52 + game_data.cursor_y * 8);
+        move_sprite(3, 60 + game_data.cursor_x * 8, 60 + game_data.cursor_y * 8);
+    }
+    SHOW_SPRITES;
 }

@@ -8,41 +8,8 @@
 #include <gb/crash_handler.h>
 #include "../fade.h"
 
-// typedef enum _peonState {
-//     P1MAN = 0,
-//     P1KING = 1,
-//     P1CAPTURED = 2,
-//     P2MAN = 3,
-//     P2KING = 4,
-//     P2CAPTURED = 5
-// } peonState;
-
-// typedef struct _peon {
-//     peonState state;
-//     uint8_t x, y;
-// } peon;
-
-// typedef struct _gameData {
-
-//     uint8_t cursor_x, cursor_y;
-//     uint8_t cursor_cooldown;
-//     peon *cursor_target;
-
-//     uint8_t move_counter;
-//     peon peons[24];
-//     peon *board[8][8];
-
-// } gameData;
-
 gameData game_data;
-// state *flow_state = &selectState;
-
-uint8_t joypad_current, joypad_previous;
-
-extern uint16_t global_counter;
-
-extern const uint8_t tiles;
-extern const uint8_t sprites;
+// uint8_t joypad_current, joypad_previous;
 
 void init_sound(void) {
     NR52_REG=0x80;
@@ -71,7 +38,7 @@ void init_board(void) {
                     p_count = 0;
                 } else if (iy > 4) {
                     game_data.peons[1][p_count].state = P2MAN;
-                    game_data.board[ix][iy] = &game_data.peons[0][p_count];
+                    game_data.board[ix][iy] = &game_data.peons[1][p_count];
                     p_count++;
                 } else {
                     game_data.board[ix][iy] = NULL;
@@ -83,36 +50,7 @@ void init_board(void) {
     }
 }
 
-void init_cursor(void) {
-    SPRITES_8x8;
-    HIDE_SPRITES;
-    set_sprite_data(0, 2, &sprites);
-    set_sprite_tile(0, 0);
-    set_sprite_tile(1, 0);
-    set_sprite_prop(1, S_FLIPY);
-    set_sprite_tile(2, 0);
-    set_sprite_prop(2, S_FLIPX);
-    set_sprite_tile(3, 0);
-    set_sprite_prop(3, S_FLIPY | S_FLIPX);
-    SHOW_SPRITES;
-}
 
-void draw_sprites(void) {
-    gameData *data_ptr = &game_data;
-    HIDE_SPRITES;
-    if ((global_counter >> 3) % 2) {
-        move_sprite(0, 51 + game_data.cursor_x * 8, 51 + game_data.cursor_y * 8);
-        move_sprite(1, 51 + game_data.cursor_x * 8, 61 + game_data.cursor_y * 8);
-        move_sprite(2, 61 + game_data.cursor_x * 8, 51 + game_data.cursor_y * 8);
-        move_sprite(3, 61 + game_data.cursor_x * 8, 61 + game_data.cursor_y * 8);
-    } else {
-        move_sprite(0, 52 + game_data.cursor_x * 8, 52 + game_data.cursor_y * 8);
-        move_sprite(1, 52 + game_data.cursor_x * 8, 60 + game_data.cursor_y * 8);
-        move_sprite(2, 60 + game_data.cursor_x * 8, 52 + game_data.cursor_y * 8);
-        move_sprite(3, 60 + game_data.cursor_x * 8, 60 + game_data.cursor_y * 8);
-    }
-    SHOW_SPRITES;
-}
 
 void game_init(void) {
     game_data.move_counter = 0;
@@ -121,78 +59,78 @@ void game_init(void) {
     game_data.cursor_cooldown = 0;
     game_data.cursor_target = NULL;
     
-    // init_board();
+    init_board();
 
-    // init_selectState();
-    // init_dropState();
-    // init_jumpState();
-    // init_crownState();
-    // init_captureState();
+    // init_bkg(1);
 
-    set_bkg_data(0, 12, &tiles);
+    init_gfx();
+    init_cursor();
+
     draw_bkg();
 
-    init_cursor();
     draw_sprites();
 
     fade_in();
     init_sound();
     do_sound();
+
+    game_flow_init();
 }
 
-void cursor_poll(void) {
-    joypad_previous = joypad_current;
-    joypad_current = joypad();
-    if (game_data.cursor_cooldown == 0) {
-        if (joypad_current & J_UP) {
-            game_data.cursor_cooldown = 7;
-            if (game_data.cursor_y > 0) {
-                game_data.cursor_y--;
-            } else {
-                // buzz
-            }
-        } else if (joypad_current & J_DOWN) {
-            game_data.cursor_cooldown = 7;
-            if (game_data.cursor_y < 7) {
-                game_data.cursor_y++;
-            } else {
-                // buzz
-            }
-        } else if (joypad_current & J_LEFT) {
-            game_data.cursor_cooldown = 7;
-            if (game_data.cursor_x > 0) {
-                game_data.cursor_x--;
-            } else {
-                // buzz
-            }
-        } else if (joypad_current & J_RIGHT) {
-            game_data.cursor_cooldown = 7;
-            if (game_data.cursor_x < 7) {
-                game_data.cursor_x++;
-            } else {
-                // buzz
-            }
-        } else if (joypad_current & J_A) {
-            if (game_data.board[game_data.cursor_x][game_data.cursor_y]) {
-                // a piece exists here
-                // if (game_data.move_counter % 2)
-                if (game_data.cursor_target) {
-                    game_data.cursor_target = NULL;
-                } else {
-                    game_data.cursor_target = game_data.board[game_data.cursor_x][game_data.cursor_y];
-                }
-            }
-        }
-    } else {
-        game_data.cursor_cooldown--;
-    }
-}
+// void cursor_poll(void) {
+//     joypad_previous = joypad_current;
+//     joypad_current = joypad();
+//     if (game_data.cursor_cooldown == 0) {
+//         if (joypad_current & J_UP) {
+//             game_data.cursor_cooldown = 7;
+//             if (game_data.cursor_y > 0) {
+//                 game_data.cursor_y--;
+//             } else {
+//                 // buzz
+//             }
+//         } else if (joypad_current & J_DOWN) {
+//             game_data.cursor_cooldown = 7;
+//             if (game_data.cursor_y < 7) {
+//                 game_data.cursor_y++;
+//             } else {
+//                 // buzz
+//             }
+//         } else if (joypad_current & J_LEFT) {
+//             game_data.cursor_cooldown = 7;
+//             if (game_data.cursor_x > 0) {
+//                 game_data.cursor_x--;
+//             } else {
+//                 // buzz
+//             }
+//         } else if (joypad_current & J_RIGHT) {
+//             game_data.cursor_cooldown = 7;
+//             if (game_data.cursor_x < 7) {
+//                 game_data.cursor_x++;
+//             } else {
+//                 // buzz
+//             }
+//         } else if (joypad_current & J_A) {
+//             if (game_data.board[game_data.cursor_x][game_data.cursor_y]) {
+//                 // a piece exists here
+//                 // if (game_data.move_counter % 2)
+//                 if (game_data.cursor_target) {
+//                     game_data.cursor_target = NULL;
+//                 } else {
+//                     game_data.cursor_target = game_data.board[game_data.cursor_x][game_data.cursor_y];
+//                 }
+//             }
+//         }
+//     } else {
+//         game_data.cursor_cooldown--;
+//     }
+// }
 
 uint8_t game_iter(void) {
 
 
 
-    cursor_poll();
+    // cursor_poll();
+    game_flow_iter();
     
     //     if (game_data.cursor_target) {
     //         // game_data.cursor_target-
@@ -209,7 +147,7 @@ uint8_t game_iter(void) {
 }
 
 uint8_t game_exit(void) {
-    
+    game_flow_exit();
     fade_out();
     return 1;
 }
