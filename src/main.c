@@ -4,6 +4,7 @@
 #include "game_states.h"
 #include "fade.h"
 
+uint8_t joypad_previous, joypad_current;
 uint16_t global_counter = 0;
 
 void main(void) {
