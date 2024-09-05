@@ -1,6 +1,6 @@
 
 #include "settings.h"
-#include "../fade.h"
+#include "../utils/fade.h"
 
 typedef struct _settingsData {
     uint8_t count;

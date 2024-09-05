@@ -1,6 +1,6 @@
 
 #include "win.h"
-#include "../fade.h"
+#include "../utils/fade.h"
 
 typedef struct _winData {
     uint8_t count;

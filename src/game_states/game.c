@@ -6,24 +6,10 @@
 #include "game/view.h"
 
 #include <gb/crash_handler.h>
-#include "../fade.h"
+#include "../utils/fade.h"
 
 gameData game_data;
 // uint8_t joypad_current, joypad_previous;
-
-void init_sound(void) {
-    NR52_REG=0x80;
-    NR50_REG=0x77;
-    NR51_REG=0xFF;
-}
-
-void do_sound(void) {
-    NR10_REG=0x6A;
-    NR11_REG=0x86;
-    NR12_REG=0x82;
-    NR13_REG=0xA6;
-    NR14_REG=0x82;
-}
 
 void init_board(void) {
     uint8_t p_count = 0;
@@ -61,8 +47,6 @@ void game_init(void) {
     
     init_board();
 
-    // init_bkg(1);
-
     init_gfx();
     init_cursor();
 
@@ -72,73 +56,13 @@ void game_init(void) {
 
     fade_in();
     init_sound();
-    do_sound();
 
     game_flow_init();
 }
 
-// void cursor_poll(void) {
-//     joypad_previous = joypad_current;
-//     joypad_current = joypad();
-//     if (game_data.cursor_cooldown == 0) {
-//         if (joypad_current & J_UP) {
-//             game_data.cursor_cooldown = 7;
-//             if (game_data.cursor_y > 0) {
-//                 game_data.cursor_y--;
-//             } else {
-//                 // buzz
-//             }
-//         } else if (joypad_current & J_DOWN) {
-//             game_data.cursor_cooldown = 7;
-//             if (game_data.cursor_y < 7) {
-//                 game_data.cursor_y++;
-//             } else {
-//                 // buzz
-//             }
-//         } else if (joypad_current & J_LEFT) {
-//             game_data.cursor_cooldown = 7;
-//             if (game_data.cursor_x > 0) {
-//                 game_data.cursor_x--;
-//             } else {
-//                 // buzz
-//             }
-//         } else if (joypad_current & J_RIGHT) {
-//             game_data.cursor_cooldown = 7;
-//             if (game_data.cursor_x < 7) {
-//                 game_data.cursor_x++;
-//             } else {
-//                 // buzz
-//             }
-//         } else if (joypad_current & J_A) {
-//             if (game_data.board[game_data.cursor_x][game_data.cursor_y]) {
-//                 // a piece exists here
-//                 // if (game_data.move_counter % 2)
-//                 if (game_data.cursor_target) {
-//                     game_data.cursor_target = NULL;
-//                 } else {
-//                     game_data.cursor_target = game_data.board[game_data.cursor_x][game_data.cursor_y];
-//                 }
-//             }
-//         }
-//     } else {
-//         game_data.cursor_cooldown--;
-//     }
-// }
-
 uint8_t game_iter(void) {
 
-
-
-    // cursor_poll();
     game_flow_iter();
-    
-    //     if (game_data.cursor_target) {
-    //         // game_data.cursor_target-
-    //     }
-    // } else {
-    //     game_data.cursor_cooldown--;
-    // }
-
 
     draw_sprites();
 

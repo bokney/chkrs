@@ -1,6 +1,6 @@
 
 #include "lose.h"
-#include "../fade.h"
+#include "../utils/fade.h"
 
 typedef struct _loseData {
     uint8_t count;

@@ -1,6 +1,6 @@
 
 #include "splash.h"
-#include "../fade.h"
+#include "../utils/fade.h"
 
 typedef struct _splashData {
     uint8_t count;

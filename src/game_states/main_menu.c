@@ -1,6 +1,6 @@
 
 #include "main_menu.h"
-#include "../fade.h"
+#include "../utils/fade.h"
 
 typedef struct _mainMenuData {
     uint8_t count;

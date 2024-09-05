@@ -1,6 +1,6 @@
 
 #include "game_intro.h"
-#include "../fade.h"
+#include "../utils/fade.h"
 
 typedef struct _gameIntroData {
     uint8_t count;

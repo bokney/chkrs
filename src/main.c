@@ -2,7 +2,7 @@
 #include <gb/gb.h>
 #include <gb/crash_handler.h>
 #include "game_states.h"
-#include "fade.h"
+#include "utils/fade.h"
 
 uint8_t joypad_previous, joypad_current;
 uint16_t global_counter = 0;
@@ -21,7 +21,7 @@ void main(void) {
 	init_settingsState();
 
     state *currentState = &gameState;
-    
+
     for (;;) {
         switch (runState(currentState)) {
             case 0:
