@@ -1,5 +1,5 @@
 
-#include "game_states.h"
+#include "../../game_states.h"
 #include <gb/crash_handler.h>
 
 uint8_t runState(state *target) {
