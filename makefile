@@ -6,8 +6,9 @@ MFLAGS = #-Wl-yt1 -Wl-yo4 -Wl-ya0
 all: build open clean
 
 build:
+	$(CC) $(CFLAGS) -c -o sfx.o src/utils/sfx.c
 	$(CC) $(CFLAGS) -c -o gfx.o src/gfx/gfx.c
-	$(CC) $(CFLAGS) -c -o fade.o src/fade.c
+	$(CC) $(CFLAGS) -c -o fade.o src/utils/fade.c
 
 	$(CC) $(CFLAGS) -c -o select.o src/game_states/game/flow_states/select.c
 	$(CC) $(CFLAGS) -c -o pass.o src/game_states/game/flow_states/pass.c
@@ -31,12 +32,12 @@ build:
 	$(CC) $(CFLAGS) -c -o lose.o src/game_states/lose.c
 	$(CC) $(CFLAGS) -c -o win.o src/game_states/win.c
 	$(CC) $(CFLAGS) -c -o settings.o src/game_states/settings.c
-	$(CC) $(CFLAGS) -c -o stateManager.o src/stateManager.c
+	$(CC) $(CFLAGS) -c -o stateManager.o src/utils/stateManager/stateManager.c
 	$(CC) $(CFLAGS) -c -o game_states.o src/game_states.c
 
 	$(CC) $(CFLAGS) -c -o main.o src/main.c
 
-	$(CC) $(MFLAGS) -o output.gb main.o game_states.o stateManager.o settings.o win.o lose.o game.o game_intro.o main_menu.o intro.o splash.o flow_manager.o flow_states.o view.o end.o handover.o capture.o crown.o jump.o drop.o declare.o pass.o select.o fade.o gfx.o
+	$(CC) $(MFLAGS) -o output.gb main.o game_states.o stateManager.o settings.o win.o lose.o game.o game_intro.o main_menu.o intro.o splash.o flow_manager.o flow_states.o view.o end.o handover.o capture.o crown.o jump.o drop.o declare.o pass.o select.o fade.o gfx.o sfx.o
 
 open:
 	open -a /Applications/SameBoy.app output.gb
