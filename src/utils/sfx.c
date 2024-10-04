@@ -22,3 +22,19 @@ void snd_bleoop(void) {
     NR13_REG=0x06;
     NR14_REG=0x87;
 }
+
+void snd_fall_down(void) {
+    NR10_REG=0x5F;
+    NR11_REG=0x81;
+    NR12_REG=0xC7;
+    NR13_REG=0x06;
+    NR14_REG=0x87;
+}
+
+void snd_star_fall(void) {
+    NR10_REG=0x7F;
+    NR11_REG=0x46;
+    NR12_REG=0xC7;
+    NR13_REG=0xFF;
+    NR14_REG=0x87;
+}
