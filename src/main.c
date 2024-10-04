@@ -11,49 +11,46 @@ void main(void) {
 
 	fade_out();
 
-	init_splashState();
-	init_introState();
-	init_mainMenuState();
-	init_gameIntroState();
-	init_gameState();
-	init_loseState();
-	init_winState();
-	init_settingsState();
-
-    state *currentState = &gameState;
+    state currentState;
+	assign_gameState(&currentState);
 
     for (;;) {
-        switch (runState(currentState)) {
+		
+        switch (runState(&currentState)) {
             case 0:
+				__HandleCrash();
                 break;
 			case 1:
-				currentState = &splashState;
+				assign_splashState(&currentState);
 				break;
 			case 2:
-				currentState = &introState;
+				assign_introState(&currentState);
 				break;
 			case 3:
-				currentState = &mainMenuState;
+				assign_mainMenuState(&currentState);
 				break;
 			case 4:
-				currentState = &gameIntroState;
+				assign_gameIntroState(&currentState);
 				break;
 			case 5:
-				currentState = &gameState;
+				assign_gameState(&currentState);
 				break;
 			case 6:
-				currentState = &loseState;
+				assign_loseState(&currentState);
 				break;
 			case 7:
-				currentState = &winState;
+				assign_winState(&currentState);
 				break;
 			case 8:
-				currentState = &settingsState;
+				assign_settingsState(&currentState);
 				break;
 			default:
 				__HandleCrash();
 		}
+
 		global_counter++;
 		wait_vbl_done();
 	}
+
+
 }
