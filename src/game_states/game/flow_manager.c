@@ -12,6 +12,7 @@ void game_flow_init(void) {
 uint8_t game_flow_iter(void) {
 	switch (runState(&currentState)) {
 		case 0:
+			__HandleCrash();
 			break;
 		case 1:
 			assign_selectState(&currentState);

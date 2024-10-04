@@ -21,66 +21,58 @@ state
 	winState,
 	settingsState;
 
-state *init_splashState(void) {
-    splashState.step = 0;
-    splashState.init = splash_init;
-    splashState.iter = splash_iter;
-    splashState.exit = splash_exit;
-    return &splashState;
+void assign_splashState(state *state) {
+    state->step = 0;
+    state->init = &splash_init;
+    state->iter = &splash_iter;
+    state->exit = &splash_exit;
 }
 
-state *init_introState(void) {
-    introState.step = 0;
-    introState.init = intro_init;
-    introState.iter = intro_iter;
-    introState.exit = intro_exit;
-    return &introState;
+void assign_introState(state *state) {
+    state->step = 0;
+    state->init = &intro_init;
+    state->iter = &intro_iter;
+    state->exit = &intro_exit;
 }
 
-state *init_mainMenuState(void) {
-    mainMenuState.step = 0;
-    mainMenuState.init = main_menu_init;
-    mainMenuState.iter = main_menu_iter;
-    mainMenuState.exit = main_menu_exit;
-    return &mainMenuState;
+void assign_mainMenuState(state *state) {
+    state->step = 0;
+    state->init = &main_menu_init;
+    state->iter = &main_menu_iter;
+    state->exit = &main_menu_exit;
 }
 
-state *init_gameIntroState(void) {
-    gameIntroState.step = 0;
-    gameIntroState.init = game_intro_init;
-    gameIntroState.iter = game_intro_iter;
-    gameIntroState.exit = game_intro_exit;
-    return &gameIntroState;
+void assign_gameIntroState(state *state) {
+    state->step = 0;
+    state->init = &game_intro_init;
+    state->iter = &game_intro_iter;
+    state->exit = &game_intro_exit;
 }
 
-state *init_gameState(void) {
-    gameState.step = 0;
-    gameState.init = game_init;
-    gameState.iter = game_iter;
-    gameState.exit = game_exit;
-    return &gameState;
+void assign_gameState(state *state) {
+    state->step = 0;
+    state->init = &game_init;
+    state->iter = &game_iter;
+    state->exit = &game_exit;
 }
 
-state *init_loseState(void) {
-    loseState.step = 0;
-    loseState.init = lose_init;
-    loseState.iter = lose_iter;
-    loseState.exit = lose_exit;
-    return &loseState;
+void assign_loseState(state *state) {
+    state->step = 0;
+    state->init = &lose_init;
+    state->iter = &lose_iter;
+    state->exit = &lose_exit;
 }
 
-state *init_winState(void) {
-    winState.step = 0;
-    winState.init = win_init;
-    winState.iter = win_iter;
-    winState.exit = win_exit;
-    return &winState;
+void assign_winState(state *state) {
+    state->step = 0;
+    state->init = &win_init;
+    state->iter = &win_iter;
+    state->exit = &win_exit;
 }
 
-state *init_settingsState(void) {
-    settingsState.step = 0;
-    settingsState.init = settings_init;
-    settingsState.iter = settings_iter;
-    settingsState.exit = settings_exit;
-    return &settingsState;
+void assign_settingsState(state *state) {
+    state->step = 0;
+    state->init = &settings_init;
+    state->iter = &settings_iter;
+    state->exit = &settings_exit;
 }

@@ -10,33 +10,42 @@ uint8_t wall_hit_x = 0;
 uint8_t wall_hit_y = 0;
 uint8_t destination = 0;
 
-typedef struct _moveData {
+typedef struct _moveCommand {
     uint8_t move_type;
+    /*
+        0: none, skip
+        1: move (-> crown)
+        2: capture (-> capture)
+    */
     uint8_t target_x, target_y;
-    struct _moveData *next;
-} moveData;
+    struct _moveCommand *next;
+} moveCommand;
 
-void init_moveData(moveData *target) {
+void init_moveCommand(moveCommand *target) {
     target->move_type = 0;
     target->target_x = 0;
     target->target_y = 0;
     target->next = NULL;
-} 
+}
 
-moveData possible_moves[32];
+moveCommand possible_moves[32];
 peonData *can_move[12];
 
 void get_possible_moves(peonData *peon, uint8_t player) {
     for (uint8_t i = 0; i < 32; i++) {
-        init_moveData(&possible_moves[i]);
+        init_moveCommand(&possible_moves[i]);
     }
-    if (peon->x )
+    // is space empty
+    // if (!game_data.board[peon->x + 1][peon->y + 1])
+    if (1 < peon->x < 6) {
+
+    }
 }
 
 uint8_t is_valid_move(peonData *peon, uint8_t target_x, uint8_t target_y) {
     // is space free to move to
     if (!game_data.board[target_x][target_y]) {
-
+        
     }
 }
 
@@ -107,6 +116,9 @@ uint8_t select_iter(void) {
                         return 1;
                     }
                 }
+            } else if (joypad_current & J_B) {
+                if (game_data.cursor_x % 2) snd_fall_down();
+                else snd_star_fall();
             }
         }
     } else {
